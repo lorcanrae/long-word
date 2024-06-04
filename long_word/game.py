@@ -3,6 +3,7 @@
 
 import string
 import random
+import requests
 
 
 class Game:
@@ -22,7 +23,19 @@ class Game:
                 letters.remove(letter)
             else:
                 return False
-        return True
+
+        # Check if word is in dictionary
+        # url = f"https://dictionary.lewagon.com/{word}"
+        # response = requests.get(url).json()
+        # if not response["found"]:
+        #     return False
+
+        return self.__check_dictionary(word)
+
+    @staticmethod
+    def __check_dictionary(word):
+        response = requests.get(f"https://dictionary.lewagon.com/{word}").json()
+        return response['found']
 
 
 if __name__ == "__main__":
